@@ -13,6 +13,7 @@ import React from "react";
 
 import {
   FloatingComposer,
+  FloatingThreads,
   liveblocksConfig,
   LiveblocksPlugin,
   useEditorStatus,
@@ -20,6 +21,7 @@ import {
 import Loader from "../Loader";
 
 import FloatingToolbarPlugin from "@/components/editor/plugins/FloatingToolbarPlugin";
+import { useThreads } from "@liveblocks/react/suspense";
 
 // Catch any errors that occur during Lexical updates and log them
 // or throw them as needed. If you don't throw them, Lexical will
@@ -37,6 +39,7 @@ export function Editor({
   currentUserType: UserType;
 }) {
   const status = useEditorStatus();
+  const { threads } = useThreads();
 
   const initialConfig = liveblocksConfig({
     namespace: "Editor",
@@ -75,7 +78,10 @@ export function Editor({
             </div>
           )}
 
-          <LiveblocksPlugin></LiveblocksPlugin>
+          <LiveblocksPlugin>
+            <FloatingComposer className="w-[350px]" />
+            <FloatingThreads threads={threads} />
+          </LiveblocksPlugin>
         </div>
       </div>
     </LexicalComposer>
