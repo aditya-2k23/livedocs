@@ -3,7 +3,7 @@
 import { nanoid } from "nanoid";
 import { liveblocks } from "../liveblocks";
 import { revalidatePath } from "next/cache";
-import { parseStringify } from "../utils";
+import { getAccessType, parseStringify } from "../utils";
 
 export const createDocument = async ({
   userId,
@@ -80,5 +80,30 @@ export const getDocuments = async (email: string) => {
     return parseStringify(rooms);
   } catch (error) {
     console.log(`Error happened while getting rooms: ${error}`);
+  }
+};
+
+export const updateDocumentAccess = async ({
+  roomId,
+  email,
+  userType,
+}: ShareDocumentParams) => {
+  try {
+    const userAccesses: RoomAccesses = {
+      [email]: getAccessType(userType) as AccessType,
+    };
+
+    const room = await liveblocks.updateRoom(roomId, {
+      usersAccesses,
+    });
+
+    if (room) {
+      // TODO: Send a notification to the user
+    }
+
+    revalidatePath(`/document/${roomId}`);
+    return parseStringify(room);
+  } catch (error) {
+    console.log(`Error happened while updating a room access: ${error}`);
   }
 };
