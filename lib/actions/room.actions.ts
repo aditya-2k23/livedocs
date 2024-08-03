@@ -25,7 +25,7 @@ export const createDocument = async ({
     const room = await liveblocks.createRoom(roomId, {
       metadata,
       usersAccesses,
-      defaultAccesses: ["room:write"],
+      defaultAccesses: [],
     });
 
     revalidatePath("/");
@@ -88,7 +88,7 @@ export const updateDocumentAccess = async ({
   userType,
 }: ShareDocumentParams) => {
   try {
-    const userAccesses: RoomAccesses = {
+    const usersAccesses: RoomAccesses = {
       [email]: getAccessType(userType) as AccessType,
     };
 
