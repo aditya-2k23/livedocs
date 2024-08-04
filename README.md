@@ -2,7 +2,7 @@
 
 ![LiveDocs](public/assets/images/logo.png) **LiveDocs** is a collaborative documentation editor that enables you to write your documentation in markdown and automatically syncs it with other collaborators who have permissions to view or edit the project alongside you. It provides a seamless and efficient way to work together on documentation, ensuring that everyone stays up-to-date with the latest changes.
 
-<!-- See the project live at [livedocs.vercel.app](https://livedocs.vercel.app) -->
+See the project live at [livedocs.vercel.app](https://livedocs-aditya-2k23s-projects.vercel.app/)
 
 ## Table of Contents
 
@@ -64,7 +64,7 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### About Next.js
+#### About Next.js
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
