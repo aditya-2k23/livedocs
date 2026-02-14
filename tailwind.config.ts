@@ -41,7 +41,7 @@ const config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        sans: ["Inter", ...fontFamily.sans],
       },
       keyframes: {
         "accordion-down": {
