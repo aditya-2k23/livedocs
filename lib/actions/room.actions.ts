@@ -1,7 +1,7 @@
 "use server";
 
 import { nanoid } from "nanoid";
-import { liveblocks } from "../liveblocks";
+import { getLiveblocks } from "../liveblocks";
 import { revalidatePath } from "next/cache";
 import { getAccessType, parseStringify } from "../utils";
 import { redirect } from "next/navigation";
@@ -23,6 +23,7 @@ export const createDocument = async ({
       [email]: ["room:write"],
     };
 
+    const liveblocks = getLiveblocks();
     const room = await liveblocks.createRoom(roomId, {
       metadata,
       usersAccesses,
@@ -45,6 +46,7 @@ export const getDocument = async ({
   userId: string;
 }) => {
   try {
+    const liveblocks = getLiveblocks();
     const room = await liveblocks.getRoom(roomId);
 
     const hasAccess = Object.keys(room.usersAccesses).includes(userId);
@@ -61,6 +63,7 @@ export const getDocument = async ({
 
 export const updateDocument = async (roomId: string, title: string) => {
   try {
+    const liveblocks = getLiveblocks();
     const updatedRoom = await liveblocks.updateRoom(roomId, {
       metadata: {
         title,
@@ -77,6 +80,7 @@ export const updateDocument = async (roomId: string, title: string) => {
 
 export const getDocuments = async (email: string) => {
   try {
+    const liveblocks = getLiveblocks();
     const rooms = await liveblocks.getRooms({ userId: email });
 
     return parseStringify(rooms);
@@ -96,6 +100,7 @@ export const updateDocumentAccess = async ({
       [email]: getAccessType(userType) as AccessType,
     };
 
+    const liveblocks = getLiveblocks();
     const room = await liveblocks.updateRoom(roomId, {
       usersAccesses,
     });
@@ -133,6 +138,7 @@ export const removeCollaborator = async ({
   email: string;
 }) => {
   try {
+    const liveblocks = getLiveblocks();
     const room = await liveblocks.getRoom(roomId);
 
     if (room.metadata.email === email) {
@@ -154,6 +160,7 @@ export const removeCollaborator = async ({
 
 export const deleteDocument = async (roomId: string) => {
   try {
+    const liveblocks = getLiveblocks();
     await liveblocks.deleteRoom(roomId);
     revalidatePath("/");
     redirect("/");
